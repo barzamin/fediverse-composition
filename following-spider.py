@@ -11,5 +11,5 @@ class FollowingSpider(scrapy.Spider):
 		for name in response.css('.display-name'):
 			yield {'addr': name.css('span::text')[1].get().strip()}
 
-		for href in response.css('nav.pagination > span.page > a::attr(href)'):
+		for href in response.css('nav.pagination > span.page > a[rel=next]::attr(href)'):
 			yield response.follow(href.get(), callback=self.parse)
